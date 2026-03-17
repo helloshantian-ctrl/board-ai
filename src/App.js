@@ -8,9 +8,6 @@ import { useState, useRef, useEffect } from "react";
 function FreeTextarea({ defaultValue = "", innerRef, ...props }) {
   return <textarea ref={innerRef} defaultValue={defaultValue} {...props} />;
 }
-function FreeInput({ defaultValue = "", innerRef, ...props }) {
-  return <input ref={innerRef} defaultValue={defaultValue} {...props} />;
-}
 
 const BOARD_CONFIGS = {
   strategy: {
@@ -190,7 +187,7 @@ export default function App() {
   useEffect(() => { botRef.current?.scrollIntoView({ behavior: "smooth" }); }, [msgs, loading, report, cmpRpt]);
   useEffect(() => {
     if (view === "history" && !histLoaded) { setHistory(lsLoad()); setHistLoaded(true); }
-  }, [view]);
+  }, [view, histLoaded]);
 
   const board  = BOARD_CONFIGS[boardKey];
   const rounds = DEPTHS.find(d => d.key === depth)?.rounds || 2;
