@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'claude-opus-4-6',
+        model: 'claude-3-5-sonnet-20241022',
         max_tokens: 2048,
         system: system || 'You are a helpful assistant.',
         messages,
@@ -40,7 +40,7 @@ export default async function handler(req, res) {
     const data = await response.json();
     return res.status(200).json(data);
   } catch (error) {
-    console.error('Chat API error:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    console.error('Chat API error:', error.message);
+    return res.status(500).json({ error: error.message || 'Internal server error' });
   }
 }
