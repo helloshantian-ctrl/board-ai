@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'ANTHROPIC_API_KEY is not configured' });
   }
 
-  const { messages, system } = req.body;
+  const { messages, system, model } = req.body;
 
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: 'Invalid messages' });
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
+        model: model || 'claude-sonnet-4-6',
         max_tokens: 2048,
         system: system || 'You are a helpful assistant.',
         messages,
